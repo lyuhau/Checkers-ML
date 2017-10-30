@@ -31,7 +31,7 @@ public class ExampleAIPlayer extends Player {
 	public void injectDb(@Qualifier("states") DataSource statesDs) throws SQLException {
 		Connection connection = statesDs.getConnection();
 		weightQuery = connection.prepareStatement(""
-				+ "select move, weight/samples weight from states where board = ? and move in ( ?, ?, ?, ?, ?, ?, ?, ? );");
+				+ "select move, weight/samples weight from states where board = ? and move in ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );");
 	}
 
 	public Move getNextMove(Board board, Map<Position, List<Move>> availableMoves, MoveHistory history) {
@@ -44,7 +44,7 @@ public class ExampleAIPlayer extends Player {
 
 		try {
 			weightQuery.setString(1, board.minString(side == Side.BLACK));
-			for (int i=0; i<8; i++) {
+			for (int i=0; i<13; i++) {
 				weightQuery.setString(i+2, allAvailableMoves.size() > i ? allAvailableMoves.get(i).toString() : "''");
 			}
 
